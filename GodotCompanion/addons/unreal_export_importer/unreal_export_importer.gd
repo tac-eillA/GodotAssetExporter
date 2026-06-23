@@ -261,21 +261,28 @@ func _load_import_preset_for_manifest(manifest: Dictionary, manifest_path: Strin
         return {}
     var preset_path := _manifest_relative_to_res_path(_export_root(), preset_rel)
     var preset := _load_json(preset_path)
+    if preset.is_empty():
+        return {}
     preset["_preset_path"] = preset_path
     preset["_manifest_path"] = manifest_path
     return preset
 
 func _find_manifest_files(root_path: String) -> Array[String]:
     var results: Array[String] = []
-    results.append_array(_find_files(root_path.path_join("manifests"), "manifest.json"))
-    results.append_array(_find_files(root_path, "godot_export_manifest.json"))
-    results.append_array(_find_files(root_path.path_join("manifests"), "headless_manifest.json"))
+    _append_unique_paths(results, _find_files(root_path.path_join("manifests"), "manifest.json"))
+    _append_unique_paths(results, _find_files(root_path, "godot_export_manifest.json"))
+    _append_unique_paths(results, _find_files(root_path.path_join("manifests"), "headless_manifest.json"))
     if results.is_empty():
-        results.append_array(_find_files(root_path, "manifest.json"))
+        _append_unique_paths(results, _find_files(root_path, "manifest.json"))
     return results
 
 func _find_import_preset_files(root_path: String) -> Array[String]:
     return _find_files(root_path.path_join("import_presets"), "godot_import_preset.json")
+
+func _append_unique_paths(target: Array[String], paths: Array[String]) -> void:
+    for path in paths:
+        if not target.has(path):
+            target.append(path)
 
 func _load_json(path: String) -> Dictionary:
     if not FileAccess.file_exists(path):
