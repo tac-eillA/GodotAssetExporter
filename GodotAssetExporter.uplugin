@@ -1,0 +1,24 @@
+{
+  "FileVersion": 3,
+  "Version": 6,
+  "VersionName": "0.5.1",
+  "FriendlyName": "Godot Asset Exporter",
+  "Description": "Exports selected Unreal Engine Static Mesh assets and full/partial Unreal levels to Godot-friendly glTF/GLB files, with presets, validation, dry-run diffs, actor tag groups, prefab-origin metadata, collision helpers, output cleanup, Godot import preset metadata, a companion post-processor, CI/headless export support, and UE test-readiness preflight tools.",
+  "Category": "Import/Export",
+  "CreatedBy": "OpenAI",
+  "CanContainContent": false,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "GodotAssetExporter",
+      "Type": "Editor",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "GLTFExporter",
+      "Enabled": true
+    }
+  ]
+}
