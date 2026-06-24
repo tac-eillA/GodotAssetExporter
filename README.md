@@ -2,7 +2,7 @@
 
 Editor-only Unreal Engine plugin for exporting Unreal Static Mesh assets, selected level actors, prefab-style actor groups, and full levels to Godot-friendly glTF/GLB.
 
-The plugin wraps Unreal's built-in `GLTFExporter` plugin and adds Godot-oriented workflow features around it: presets, manifests, validation, dry-run diffs, import-hint suffixes, prefab-origin metadata, output cleanup/archive controls, Godot import preset metadata, a Godot companion addon, and first-pass CI/headless export support.
+The plugin wraps Unreal's built-in `GLTFExporter`.
 
 ## Install
 
@@ -136,70 +136,3 @@ Tools > Godot Export: Actor Tag Groups
 
 Each group exports as its own prefab scene.
 
-## Pre-test hardening features
-
-### Preflight Check
-
-Before your first UE5.8 test, run:
-
-```text
-Tools > Godot Export: Preflight Check
-```
-
-It checks:
-
-- `GLTFExporter` plugin presence/enabled state
-- Export root creation/writability
-- Current editor world availability
-- Selected Static Mesh asset count
-- Selected level actor count
-- Godot `project.godot` detection when exporting into a Godot project
-- Companion addon installation detection
-
-Report output:
-
-```text
-logs/preflight_check.txt
-```
-
-### Safe Godot Defaults
-
-`Use Safe Godot Defaults` is enabled by default. It forces conservative first-test behavior:
-
-```text
-GLB output
-No cameras
-No lights
-No lightmaps
-Adjusted normal maps
-Texture transforms
-Folder preservation
-Validation reports
-Import preset metadata
-```
-
-Disable it later if you want manual/preset settings to control every option.
-
-### Godot path copy helper
-
-After an export, run:
-
-```text
-Tools > Godot Export: Copy Last Godot res:// Path
-```
-
-This reads `cache/last_export.json`, converts the first output to a Godot `res://` path when possible, and copies it to the clipboard.
-
-### Full-level warning
-
-`Export Current Level Scene` shows a reminder that this is a glTF geometry/layout export. It does not convert gameplay logic, Blueprint behavior, landscapes, World Partition behavior, or complex material graphs. You can disable the reminder in plugin settings.
-
-### Testing checklist
-
-See:
-
-```text
-TESTING.md
-```
-
-for the recommended UE5.8 smoke-test order.
